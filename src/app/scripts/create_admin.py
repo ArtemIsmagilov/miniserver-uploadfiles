@@ -7,7 +7,7 @@ from ..sql_app.crud import create_user, get_user
 
 
 async def create_user_admin():
-    username = input('Username: ').strip().strip() or None
+    username = input('Username: ').strip() or None
     email = input('Email: ').strip() or None
     full_name = input('Full name: ').strip() or None
     password = getpass.getpass().strip() or None
