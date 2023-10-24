@@ -1,0 +1,8 @@
+.coverage
+htmlcov
+.env
+.pytest_cache
+venv-py3.12
+.idea
+local-data
+__pycache__

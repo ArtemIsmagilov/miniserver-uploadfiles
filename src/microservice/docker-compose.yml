@@ -1,0 +1,38 @@
+version: '3.9'
+
+networks:
+  app-network:
+
+services:
+  app:
+    image: "python:slim"
+    restart: "unless-stopped"
+    depends_on:
+      - db
+    working_dir: "/app"
+    ports:
+      - '8000:8000'
+    env_file:
+      - "../../.env"
+    volumes:
+      - "../:/app"
+    command: >
+      bash -c "
+      pip install -r requirements.txt
+      && ./run-app.bash
+      "
+    networks:
+      - app-network
+
+  db:
+    image: redis/redis-stack
+    restart: "unless-stopped"
+
+    environment:
+      - REDIS_ARGS=--loglevel ${REDIS_LOGLEVEL} --save ${REDIS_SAVE} --requirepass ${REDIS_PASSWORD}
+
+    volumes:
+      - './local-data/:/data'
+
+    networks:
+      - app-network

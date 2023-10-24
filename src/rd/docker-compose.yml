@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  db:
+    image: redis/redis-stack:latest
+    #restart: always
+    ports:
+      - '6379:6379'
+      - '8001:8001'
+    environment:
+      - REDIS_ARGS=--loglevel ${REDIS_LOGLEVEL} --save ${REDIS_SAVE} --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - './local-data/:/data'
